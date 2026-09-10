@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Science Feed
 
-## Getting Started
+Fil d'actualité scientifique personnalisé, façon TikTok : un flux vertical d'articles scientifiques adapté aux centres d'intérêt de l'utilisateur, avec sauvegarde, recherche et suivi de l'engagement.
 
-First, run the development server:
+## Fonctionnalités
+
+- Authentification (inscription / connexion)
+- Onboarding par centres d'intérêt pour personnaliser le flux
+- Flux vertical d'articles scientifiques recommandés
+- Recherche d'articles
+- Articles sauvegardés
+- Suivi des interactions (lecture, like, sauvegarde) pour affiner les recommandations
+
+## Stack technique
+
+- **Next.js** (App Router) + **React**
+- **NextAuth** pour l'authentification
+- **Prisma** + **SQLite** pour la persistance
+- **TanStack Query** pour la gestion des données côté client
+- **fast-xml-parser** pour l'ingestion de flux d'articles
+- **Tailwind CSS**
+
+## Démarrer en local
 
 ```bash
+npm install
+npx prisma migrate dev
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Ouvrir [http://localhost:3000](http://localhost:3000).

@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { FeedList } from "@/components/FeedList";
 
-export default async function Home() {
+export default async function FeedPage() {
   const session = await auth();
-
   if (!session?.user) {
     redirect("/login");
   }
@@ -18,5 +18,5 @@ export default async function Home() {
     redirect("/onboarding");
   }
 
-  redirect("/feed");
+  return <FeedList />;
 }

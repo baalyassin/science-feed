@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime  @default(now())
+  onboardedAt  DateTime?
+
+  interests    UserInterest[]
+  interactions Interaction[]
+  sessions     Session[]
+  accounts     Account[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Interest {
+  id         String @id @default(cuid())
+  key        String @unique
+  label      String
+  arxivCodes String
+  s2Fields   String
+
+  users    UserInterest[]
+  articles ArticleInterest[]
+}
+
+model UserInterest {
+  userId     String
+  interestId String
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  interest   Interest @relation(fields: [interestId], references: [id], onDelete: Cascade)
+
+  @@id([userId, interestId])
+}
+
+model Article {
+  id            String    @id @default(cuid())
+  source        String
+  externalId    String
+  title         String
+  abstract      String?
+  authors       String
+  url           String
+  pdfUrl        String?
+  publishedAt   DateTime?
+  venue         String?
+  citationCount Int?
+  fetchedAt     DateTime  @default(now())
+
+  interests    ArticleInterest[]
+  interactions Interaction[]
+
+  @@unique([source, externalId])
+  @@index([publishedAt])
+}
+
+model ArticleInterest {
+  articleId  String
+  interestId String
+  article    Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  interest   Interest @relation(fields: [interestId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, interestId])
+}
+
+model Interaction {
+  id        String          @id @default(cuid())
+  userId    String
+  articleId String
+  type      InteractionType
+  createdAt DateTime        @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  article Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, articleId, type])
+  @@index([userId, createdAt])
+}
+
+enum InteractionType {
+  SEEN
+  LIKE
+  SAVE
+  SKIP
+}
