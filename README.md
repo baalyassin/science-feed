@@ -2,6 +2,12 @@
 
 Fil d'actualité scientifique personnalisé, façon TikTok : un flux vertical d'articles scientifiques adapté aux centres d'intérêt de l'utilisateur, avec sauvegarde, recherche et suivi de l'engagement.
 
+## Aperçu
+
+| Onboarding | Flux | Recherche |
+|---|---|---|
+| ![Choix des centres d'intérêt](screenshots/onboarding.png) | ![Article recommandé](screenshots/feed.png) | ![Résultats de recherche](screenshots/search.png) |
+
 ## Fonctionnalités
 
 - Authentification (inscription / connexion)
